@@ -1,0 +1,1133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Business Studies Field Notes — Quality, Innovation &amp; Change</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@500;600;700&family=Kalam:wght@400;700&family=Patrick+Hand&display=swap');
+
+:root{
+  --paper:#FBF6EC;
+  --paper-raised:#FFFDF7;
+  --ink:#3A2E4D;
+  --ink-soft:#7A6E8E;
+  --line:#D8CBEA;
+  --pounamu:#4FAE8C;
+  --pounamu-deep:#2E8E70;
+  --kowhai:#F0A63B;
+  --rust:#F0616B;
+  --lilac:#B892E8;
+  --sky:#5BB8D8;
+  --pink:#F58FC0;
+  --card-shadow: 3px 4px 0 rgba(58,46,77,0.12);
+  --radius: 14px;
+  --wobble-a: 1deg;
+  --wobble-b: -0.7deg;
+}
+html[data-theme="dark"]{
+  --paper:#241B33;
+  --paper-raised:#2E2244;
+  --ink:#F1E9FF;
+  --ink-soft:#BBA9D9;
+  --line:#4A3A66;
+  --pounamu:#6BD9AF;
+  --pounamu-deep:#4FC79A;
+  --kowhai:#F5BE5C;
+  --rust:#FF8A93;
+  --lilac:#CBA8FF;
+  --sky:#7ED2EE;
+  --pink:#FFA8D6;
+  --card-shadow: 3px 4px 0 rgba(0,0,0,0.35);
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+body{
+  background:
+    radial-gradient(circle at 12% 8%, rgba(181,146,232,0.18), transparent 40%),
+    radial-gradient(circle at 90% 15%, rgba(91,184,216,0.16), transparent 45%),
+    radial-gradient(circle at 25% 90%, rgba(245,143,192,0.16), transparent 40%),
+    radial-gradient(circle at 80% 80%, rgba(240,166,59,0.14), transparent 40%),
+    var(--paper);
+  background-attachment:fixed;
+  color:var(--ink);
+  font-family:'Patrick Hand',cursive;
+  font-size:17px;
+  line-height:1.6;
+  transition:background .25s ease, color .25s ease;
+  min-height:100vh;
+}
+
+::selection{background:var(--kowhai); color:#3A2E4D;}
+
+h1,h2,h3,h4{
+  font-family:'Caveat',cursive;
+  font-weight:700;
+  color:var(--ink);
+  line-height:1.1;
+  margin:0 0 .3em 0;
+}
+
+a{color:var(--pounamu-deep); text-decoration-style:wavy;}
+html[data-theme="dark"] a{color:var(--pounamu);}
+
+/* ---------- Layout shell ---------- */
+.shell{
+  display:grid;
+  grid-template-columns: 250px 1fr;
+  min-height:100vh;
+}
+@media(max-width:860px){
+  .shell{grid-template-columns:1fr;}
+  .sidebar{position:sticky; top:0; z-index:50;}
+}
+
+.sidebar{
+  background:var(--paper-raised);
+  border-right:3px dashed var(--line);
+  padding:24px 18px 30px;
+  display:flex;
+  flex-direction:column;
+  gap:18px;
+  position:relative;
+}
+@media(max-width:860px){
+  .sidebar{border-right:none; border-bottom:3px dashed var(--line);}
+}
+
+.brand{
+  display:flex;
+  flex-direction:column;
+  gap:2px;
+  padding:6px 10px 14px;
+  position:relative;
+  transform:rotate(-1deg);
+}
+.brand::before{
+  content:"";
+  position:absolute;
+  top:-10px; left:30%;
+  width:70px; height:22px;
+  background:var(--kowhai);
+  opacity:.55;
+  transform:rotate(-4deg);
+  border-radius:2px;
+}
+.brand .kicker{
+  font-family:'Patrick Hand',cursive;
+  font-size:12px;
+  letter-spacing:.04em;
+  color:var(--ink-soft);
+}
+.brand h1{
+  font-size:34px;
+  margin:0;
+  color:var(--lilac);
+  text-shadow:2px 2px 0 rgba(0,0,0,0.06);
+}
+.brand .sub{
+  font-family:'Caveat',cursive;
+  font-style:italic;
+  font-weight:600;
+  font-size:18px;
+  color:var(--pounamu-deep);
+}
+html[data-theme="dark"] .brand .sub{color:var(--pounamu);}
+.brand{border-bottom:3px solid var(--pounamu); border-bottom-style:dashed;}
+
+nav.tabs{
+  display:flex;
+  flex-direction:column;
+  gap:6px;
+}
+.tab-btn{
+  all:unset;
+  cursor:pointer;
+  padding:10px 12px;
+  border-radius:10px;
+  font-family:'Kalam',cursive;
+  font-size:15px;
+  color:var(--ink-soft);
+  display:flex;
+  align-items:baseline;
+  gap:10px;
+  border:2px solid transparent;
+  transition:transform .12s ease, background .15s ease, color .15s ease, border-color .15s ease;
+}
+.tab-btn .num{
+  font-family:'Caveat',cursive;
+  font-size:15px;
+  color:var(--line);
+  width:18px;
+  flex-shrink:0;
+}
+.tab-btn:hover{background:rgba(184,146,232,0.14); color:var(--ink); transform:rotate(-0.6deg) translateX(2px);}
+.tab-btn.active{
+  background:var(--pounamu);
+  color:#fff;
+  font-weight:700;
+  border-color:var(--ink);
+  border-style:dashed;
+  transform:rotate(0.8deg);
+  box-shadow:2px 3px 0 rgba(58,46,77,0.18);
+}
+.tab-btn.active .num{color:#EAFBF3;}
+
+.theme-toggle{
+  margin-top:auto;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:10px 12px;
+  border:2px dashed var(--line);
+  border-radius:12px;
+  font-family:'Kalam',cursive;
+  font-size:13.5px;
+  color:var(--ink-soft);
+}
+.theme-toggle button{
+  all:unset;
+  cursor:pointer;
+  background:var(--rust);
+  color:#fff;
+  padding:5px 12px;
+  border-radius:20px;
+  font-family:'Kalam',cursive;
+  font-size:12.5px;
+  font-weight:700;
+  transform:rotate(-2deg);
+}
+.theme-toggle button:hover{transform:rotate(0deg) scale(1.05);}
+
+/* ---------- Main content ---------- */
+main{
+  padding:40px clamp(20px,5vw,64px) 80px;
+  max-width:900px;
+}
+.page{display:none; animation:fade .3s ease;}
+.page.active{display:block;}
+@keyframes fade{from{opacity:0; transform:translateY(4px);} to{opacity:1; transform:none;}}
+
+.page-eyebrow{
+  color:var(--rust);
+  font-family:'Caveat',cursive;
+  font-style:italic;
+  font-weight:600;
+  font-size:19px;
+  margin-bottom:2px;
+}
+.page h2.title{
+  font-size:clamp(34px,5vw,52px);
+  color:var(--ink);
+  position:relative;
+  display:inline-block;
+  padding-bottom:6px;
+  margin-bottom:26px;
+  transform:rotate(-0.6deg);
+}
+.page h2.title::after{
+  content:"";
+  position:absolute;
+  left:-4px; right:-10px; bottom:2px;
+  height:12px;
+  background:var(--kowhai);
+  opacity:.45;
+  z-index:-1;
+  border-radius:6px 10px 8px 12px;
+  transform:rotate(-0.8deg);
+}
+
+.lede{
+  font-family:'Kalam',cursive;
+  font-size:17px;
+  color:var(--ink-soft);
+  max-width:62ch;
+  margin-bottom:32px;
+}
+
+section.block{
+  margin-bottom:36px;
+  padding-bottom:30px;
+  border-bottom:2px dashed var(--line);
+}
+section.block:last-child{border-bottom:none;}
+
+h3.h{
+  font-size:26px;
+  color:var(--pounamu-deep);
+  margin-bottom:12px;
+  transform:rotate(-0.4deg);
+  display:inline-block;
+}
+html[data-theme="dark"] h3.h{color:var(--pounamu);}
+
+h4.hh{
+  font-family:'Kalam',cursive;
+  font-size:16px;
+  margin:16px 0 6px;
+  color:var(--ink);
+}
+
+p{margin:0 0 12px;}
+ul,ol{margin:0 0 12px; padding-left:24px;}
+li{margin-bottom:6px;}
+li::marker{color:var(--pink);}
+
+.callout{
+  background:var(--paper-raised);
+  border:2.5px dashed var(--kowhai);
+  padding:14px 20px;
+  border-radius:16px 6px 16px 6px;
+  margin:18px 4px;
+  box-shadow:var(--card-shadow);
+  transform:rotate(-0.5deg);
+  position:relative;
+}
+.callout::before{
+  content:"✦";
+  position:absolute;
+  top:-14px; left:16px;
+  background:var(--paper);
+  padding:0 6px;
+  color:var(--kowhai);
+  font-size:18px;
+}
+.callout.green{border-color:var(--pounamu); transform:rotate(0.6deg);}
+.callout.green::before{color:var(--pounamu); content:"❀";}
+.callout.rust{border-color:var(--rust); transform:rotate(-0.8deg);}
+.callout.rust::before{color:var(--rust); content:"☂";}
+
+.chain{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:10px;
+  font-family:'Kalam',cursive;
+  font-size:16px;
+  color:var(--pounamu-deep);
+  background:var(--paper-raised);
+  border:2px solid var(--line);
+  border-style:dotted;
+  padding:18px;
+  border-radius:16px;
+  margin:16px 0 22px;
+  box-shadow:var(--card-shadow);
+}
+html[data-theme="dark"] .chain{color:var(--pounamu);}
+.chain span.arrow{color:var(--pink); font-size:16px;}
+
+.grid2{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:18px;
+  margin:16px 0;
+}
+@media(max-width:640px){.grid2{grid-template-columns:1fr;}}
+
+.card{
+  background:var(--paper-raised);
+  border:2px solid var(--ink);
+  border-radius:16px 8px 16px 8px;
+  padding:16px 18px;
+  box-shadow:var(--card-shadow);
+  position:relative;
+}
+.card:nth-child(4n+1){transform:rotate(-0.6deg);}
+.card:nth-child(4n+2){transform:rotate(0.5deg);}
+.card:nth-child(4n+3){transform:rotate(-0.4deg);}
+.card:nth-child(4n+4){transform:rotate(0.7deg);}
+.card::before{
+  content:"";
+  position:absolute;
+  top:-9px; left:20px;
+  width:34px; height:16px;
+  background:var(--sky);
+  opacity:.55;
+  transform:rotate(-5deg);
+  border-radius:2px;
+}
+.card h4{margin-top:0; color:var(--pounamu-deep); font-family:'Kalam',cursive; font-size:17px;}
+html[data-theme="dark"] .card h4{color:var(--pounamu);}
+
+table{
+  width:100%;
+  border-collapse:separate;
+  border-spacing:0;
+  margin:18px 0;
+  font-size:15px;
+  border:2px solid var(--ink);
+  border-radius:12px;
+  overflow:hidden;
+}
+th,td{
+  text-align:left;
+  padding:10px 14px;
+  border:1px dashed var(--line);
+  vertical-align:top;
+}
+th{background:var(--lilac); font-family:'Kalam',cursive; color:#fff; opacity:.9;}
+html[data-theme="dark"] th{color:#241B33;}
+
+.tag{
+  display:inline-block;
+  font-family:'Kalam',cursive;
+  font-size:12.5px;
+  padding:3px 10px;
+  border-radius:20px;
+  background:var(--pounamu);
+  color:#fff;
+  margin:0 6px 6px 0;
+  transform:rotate(-2deg);
+}
+.tag.kowhai{background:var(--kowhai);}
+.tag.rust{background:var(--rust);}
+
+/* scenario cards */
+.scenario{
+  background:var(--paper-raised);
+  border:2px solid var(--ink);
+  border-radius:16px 6px 16px 6px;
+  padding:16px 18px;
+  margin-bottom:16px;
+  box-shadow:var(--card-shadow);
+}
+.scenario:nth-child(odd){transform:rotate(-0.4deg);}
+.scenario:nth-child(even){transform:rotate(0.4deg);}
+.scenario summary{
+  cursor:pointer;
+  font-family:'Kalam',cursive;
+  font-weight:700;
+  font-size:17px;
+  color:var(--ink);
+  list-style:none;
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.scenario summary::-webkit-details-marker{display:none;}
+.scenario summary::after{content:"✎"; color:var(--pink); font-size:19px; flex-shrink:0;}
+.scenario[open] summary::after{content:"✓"; color:var(--pounamu);}
+.scenario .answer{margin-top:12px; padding-top:12px; border-top:2px dashed var(--line); font-family:'Patrick Hand',cursive;}
+
+/* word bank */
+.wordbank-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(230px,1fr));
+  gap:14px;
+}
+.term{
+  background:var(--paper-raised);
+  border:2px solid var(--line);
+  border-radius:14px 6px 14px 6px;
+  padding:12px 14px;
+  box-shadow:var(--card-shadow);
+}
+.term:nth-child(3n+1){transform:rotate(-0.5deg); border-color:var(--pink);}
+.term:nth-child(3n+2){transform:rotate(0.5deg); border-color:var(--sky);}
+.term:nth-child(3n+3){transform:rotate(-0.3deg); border-color:var(--kowhai);}
+.term dt{
+  font-family:'Kalam',cursive;
+  font-weight:700;
+  color:var(--pounamu-deep);
+  font-size:16px;
+}
+html[data-theme="dark"] .term dt{color:var(--pounamu);}
+.term dd{margin:4px 0 0; font-size:14.5px; color:var(--ink-soft); font-family:'Patrick Hand',cursive;}
+
+/* flashcards */
+.flash-controls{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  margin-bottom:18px;
+  flex-wrap:wrap;
+}
+.flash-controls select, .flash-controls button{
+  font-family:'Kalam',cursive;
+  font-size:14px;
+  padding:8px 14px;
+  border-radius:20px;
+  border:2px solid var(--ink);
+  background:var(--paper-raised);
+  color:var(--ink);
+  cursor:pointer;
+}
+.flash-controls button.primary{
+  background:var(--pink);
+  color:#fff;
+  border-color:var(--pink);
+  font-weight:700;
+}
+.flashcard-wrap{
+  perspective:1200px;
+  max-width:520px;
+  margin:0 auto 18px;
+}
+.flashcard{
+  position:relative;
+  height:260px;
+  cursor:pointer;
+  transform-style:preserve-3d;
+  transition:transform .5s cubic-bezier(.4,.2,.2,1);
+}
+.flashcard.flipped{transform:rotateY(180deg);}
+.face{
+  position:absolute;
+  inset:0;
+  backface-visibility:hidden;
+  border-radius:22px 8px 22px 8px;
+  border:3px solid var(--ink);
+  background:var(--paper-raised);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  padding:28px;
+  box-shadow:5px 6px 0 rgba(58,46,77,0.15);
+}
+.face.front{font-family:'Caveat',cursive; font-weight:700; font-size:24px; color:var(--ink); line-height:1.3;}
+.face.back{
+  transform:rotateY(180deg);
+  background:var(--pounamu-deep);
+  color:#F7F5EC;
+  font-family:'Kalam',cursive;
+  font-size:16px;
+  border-color:var(--pounamu-deep);
+}
+.flash-progress{
+  text-align:center;
+  color:var(--ink-soft);
+  font-family:'Kalam',cursive;
+  font-size:14px;
+  margin-bottom:8px;
+}
+.flash-nav{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+}
+
+footer.note{
+  margin-top:40px;
+  font-family:'Kalam',cursive;
+  font-size:13.5px;
+  color:var(--ink-soft);
+  border-top:2px dashed var(--line);
+  padding-top:14px;
+}
+</style>
+</head>
+<body>
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <span class="kicker">3BUS · REVISION HUB</span>
+      <h1>Field Notes</h1>
+      <span class="sub">Quality, Innovation &amp; Change</span>
+    </div>
+    <nav class="tabs" id="tabs">
+      <button class="tab-btn active" data-page="quality"><span class="num">01</span>Quality Management</button>
+      <button class="tab-btn" data-page="innovation"><span class="num">02</span>Innovation</button>
+      <button class="tab-btn" data-page="ip"><span class="num">03</span>Intellectual Property</button>
+      <button class="tab-btn" data-page="maori"><span class="num">04</span>Māori Concepts</button>
+      <button class="tab-btn" data-page="change"><span class="num">05</span>Change Management</button>
+      <button class="tab-btn" data-page="nzbiz"><span class="num">06</span>NZ Businesses</button>
+      <button class="tab-btn" data-page="writing"><span class="num">07</span>How to Write Answers</button>
+      <button class="tab-btn" data-page="wordbank"><span class="num">08</span>Word Bank</button>
+      <button class="tab-btn" data-page="flashcards"><span class="num">09</span>Flashcards</button>
+    </nav>
+    <div class="theme-toggle">
+      <span id="themeLabel">Light mode</span>
+      <button id="themeBtn">Switch</button>
+    </div>
+  </aside>
+
+  <main>
+
+    <!-- ============ 01 QUALITY MANAGEMENT ============ -->
+    <section class="page active" id="page-quality">
+      <div class="page-eyebrow">01 — Quality is subjective, and it never stands still</div>
+      <h2 class="title">Quality Management</h2>
+      <p class="lede">Five strategies businesses use to manage quality, why quality matters, and the writing chain that turns a definition into a full NCEA answer.</p>
+
+      <section class="block">
+        <h3 class="h">What is quality?</h3>
+        <p>Quality is <strong>meeting or exceeding customer expectations</strong>. It's subjective (what counts as "quality" varies from person to person), it evolves over time as technology, materials, and competitors change, and much of it is intangible — a brand's reputation is hard to measure but hugely important.</p>
+        <div class="callout green"><strong>Discussion:</strong> Can quality exist without customers? Quality only means something in relation to someone's expectations — so no, quality is defined by the customer, not the producer.</div>
+        <p>Businesses measure quality performance through: failure/reject rates, level of product returns, customer complaints, customer satisfaction surveys, and customer loyalty (repeat purchases, renewal rates).</p>
+      </section>
+
+      <section class="block">
+        <h3 class="h">The writing chain — always follow this</h3>
+        <div class="chain">Quality strategy <span class="arrow">→</span> change inside the business <span class="arrow">→</span> effect on people / functions / management <span class="arrow">→</span> effect on stakeholders <span class="arrow">→</span> business outcomes</div>
+        <p style="font-size:14.5px;">Example: "Introducing quality assurance requires employees to follow documented procedures. This may initially increase training costs and slow production. However, it should reduce inconsistent products and recalls, protecting customer trust and long-term profitability."</p>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Five strategies for quality management</h3>
+        <div class="grid2">
+          <div class="card">
+            <h4>1. Quality Control (QC)</h4>
+            <p>Checks completed products for faults — inspectors test every item, a batch sample, or a random sample. <em>Reactive / detection-based.</em></p>
+            <p><strong>Advantage:</strong> prevents faulty products reaching the customer using specially trained inspectors.</p>
+            <p><strong>Disadvantage:</strong> rejected products are expensive (full production cost incurred but can't be sold); doesn't build individual responsibility for quality; if defect levels are high, profitability suffers unless root causes are fixed.</p>
+          </div>
+          <div class="card">
+            <h4>2. Quality Assurance (QA)</h4>
+            <p>Organises every process to get it "right first time" — a <strong>zero-defect</strong>, self-checking approach. <em>Proactive / prevention-based.</em></p>
+            <p><strong>Advantages:</strong> reduces waste/rework costs; improves worker motivation (ownership, Herzberg); breaks down "us and them" barriers; consistent quality supports marketing.</p>
+          </div>
+          <div class="card">
+            <h4>3. Kaizen</h4>
+            <p>Japanese for "continuous improvement" — every employee, from management to the cleaning crew, suggests small, ongoing improvements. Not about big capital projects; about many small changes that reduce waste and lift productivity, safety and morale.</p>
+            <p>Needs a culture shift: management must lead by example, respond to suggestions immediately, and treat problems as opportunities, not blame.</p>
+          </div>
+          <div class="card">
+            <h4>4. Quality Circles</h4>
+            <p>A <strong>voluntary</strong> group of workers, usually led by a supervisor, that meets regularly (often weekly, on company time) to identify, analyse and solve work-related problems, then present solutions to management.</p>
+            <p>Benefits: motivation, empowerment, better ideas from those closest to the work. Drawback: meeting time takes staff away from production; management may resist ceding control.</p>
+          </div>
+        </div>
+        <div class="card" style="margin-top:16px;">
+          <h4>5. Total Quality Management (TQM)</h4>
+          <p>A whole-organisation philosophy that views quality entirely from the customer's point of view — <strong>internal customers</strong> (the next person/department in the process) and <strong>external customers</strong> (the end buyer). Two objectives: <strong>100% customer satisfaction</strong> and <strong>zero defects</strong>.</p>
+          <p>TQM depends on <strong>quality chains</strong> between customers and suppliers — if one link fails to meet requirements, the failure multiplies through the system. TQM requires empowerment (giving employees a say), continuous improvement, and often a change in culture — which is exactly why many TQM implementations fail: management under-estimates the culture shift needed.</p>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Quality Control vs Quality Assurance — the key contrast</h3>
+        <table>
+          <tr><th></th><th>Quality Control</th><th>Quality Assurance</th></tr>
+          <tr><td>Focus</td><td>Output / detection</td><td>Process / prevention</td></tr>
+          <tr><td>Approach</td><td>Reactive — finds mistakes</td><td>Proactive — prevents mistakes</td></tr>
+          <tr><td>Who checks</td><td>A specific inspection team</td><td>The whole team (self-checking)</td></tr>
+          <tr><td>Main cost driver</td><td>Rejects/scrapped stock, rework</td><td>Training, documentation, auditing</td></tr>
+        </table>
+      </section>
+
+      <section class="block">
+        <h3 class="h">How quality affects internal factors (consequences of implementing quality)</h3>
+        <div class="grid2">
+          <div class="card"><h4>Operations &amp; production</h4><p>Production speed, defect rates, waste and rework, consistency, production capacity, equipment use, supplier requirements, product recalls. Inspecting products raises costs — but missing defects can cause far larger recall and reputational costs.</p></div>
+          <div class="card"><h4>Finance</h4><p><strong>Implementation costs:</strong> training, specialist equipment, testing, documentation, audits, certification, production delays.<br><strong>Potential benefits:</strong> less waste, fewer refunds/recalls, lower replacement costs, repeat purchases, premium pricing, stronger long-term profitability.</p></div>
+          <div class="card"><h4>Human resourcing</h4><p>Training requirements, workload, responsibility, motivation, job satisfaction, stress, empowerment, communication, staff retention. E.g. quality circles can raise motivation through involvement, but meetings take staff away from production.</p></div>
+          <div class="card"><h4>Marketing</h4><p>Brand reputation, customer trust and loyalty, reviews/word of mouth, product differentiation, market share, ability to charge a premium, success in global markets. Quality often becomes part of a brand's story.</p></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Stakeholder impacts — always be SPECIFIC about the group</h3>
+        <p>Don't just say "people" — name the stakeholder: employees, customers, suppliers, managers, owners, communities, government.</p>
+        <div class="grid2">
+          <div class="card"><h4>Employees</h4><p>Need training; may face increased monitoring; may feel more responsible for quality; may feel empowered through Kaizen/quality circles; may resist new procedures; workload may rise or fall.</p></div>
+          <div class="card"><h4>Customers</h4><p>Receive safer/more consistent products; may pay higher prices if quality costs are passed on; may lose trust after defects or recalls; may become loyal when expectations are consistently met.</p></div>
+          <div class="card"><h4>Management</h4><p>Must decide the acceptable quality standard, staff responsibilities, training/resources, monitoring, supplier selection, corrective action, communication, and whether quality should be inspection-based or culturally embedded. Must also make sure functions cooperate — e.g. marketing shouldn't promise premium quality that operations can't deliver.</p></div>
+          <div class="card"><h4>Suppliers</h4><p>May have to meet stricter specifications; face additional monitoring; could build stronger long-term relationships — or be dropped if they repeatedly fail requirements.</p></div>
+        </div>
+        <div class="callout rust">
+          <strong>Case in point — the 2008 Sanlu milk scandal:</strong> Chinese dairy suppliers added melamine to watered-down milk to fake higher protein readings. This sickened around 300,000 infants and caused at least six deaths. Fonterra owned 43% of Sanlu and had three directors on its board when the contamination was discovered; it took six weeks for authorities to recall the formula. It's a stark example of what happens when a quality chain fails and detection (not prevention) is the only safeguard.
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Cost of implementing quality vs cost of poor quality</h3>
+        <div class="grid2">
+          <div class="card"><h4>Cost of implementing quality</h4><ul>
+            <li>Additional quality staff</li><li>Audits and certification</li><li>Testing and inspection</li><li>Specialist equipment</li><li>Training employees</li><li>Documentation and record keeping</li><li>Slower production during implementation</li><li>Meeting and consultation time</li><li>Rejecting defective stock</li><li>Higher-cost approved suppliers</li>
+          </ul></div>
+          <div class="card"><h4>Cost of poor quality / non-compliance</h4><ul>
+            <li>Damaged reputation</li><li>Refunds and replacements</li><li>Customer injury or safety risks</li><li>Lost market share</li><li>Loss of international customers</li><li>Wasted production and rework</li><li>Product recalls</li><li>Negative reviews</li><li>Loss of licences or contracts</li><li>Legal penalties</li>
+          </ul></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Which quality strategy fits which business? (worked scenarios)</h3>
+        <details class="scenario">
+          <summary>Large NZ infant formula exporter — strict safety standards, contamination risk</summary>
+          <div class="answer"><strong>Best fit: Quality Assurance or TQM.</strong> Prevention matters more than catching defects at the end; detailed documentation and traceability are essential; failure costs could be extremely high; customer safety and regulatory compliance are critical.</div>
+        </details>
+        <details class="scenario">
+          <summary>Small handmade jewellery exporter — low volume, limited money and staff</summary>
+          <div class="answer"><strong>Best fit: Quality Control or Kaizen.</strong> Final inspection is affordable and practical at low volume; small ongoing improvements reduce recurring faults; full TQM would be unnecessarily complex; but defects could still damage its premium reputation.</div>
+        </details>
+        <details class="scenario">
+          <summary>Software company releasing frequent international updates</summary>
+          <div class="answer"><strong>Best fit: Kaizen or TQM.</strong> Continuous improvement suits frequent releases; employees have specialist knowledge of small problems; delaying every release for full inspection reduces responsiveness; poor updates risk security issues and customer dissatisfaction.</div>
+        </details>
+        <details class="scenario">
+          <summary>High-volume clothing manufacturer — sizing, seams, colour inconsistency</summary>
+          <div class="answer"><strong>Best fit: Quality Assurance supported by Quality Control.</strong> Standardised procedures prevent repeated faults; sampling/final inspection still catches remaining defects; training and monitoring cost money up front; large volumes make widespread defects very expensive.</div>
+        </details>
+        <details class="scenario">
+          <summary>Premium international hotel chain — housekeeping, reception, food, complaints</summary>
+          <div class="answer"><strong>Best fit: TQM or Quality Circles.</strong> Quality involves every department; service quality often can't be inspected after the fact; front-line staff understand recurring customer problems; meetings/training take time; poor service quickly affects online reviews and bookings.</div>
+        </details>
+      </section>
+    </section>
+
+    <!-- ============ 02 INNOVATION ============ -->
+    <section class="page" id="page-innovation">
+      <div class="page-eyebrow">02 — Creativity is the spark; culture, structure and strategy make it real</div>
+      <h2 class="title">Innovation</h2>
+      <p class="lede">Product vs process innovation, the conditions that let innovation thrive, and how corporate culture accelerates or kills it.</p>
+
+      <section class="block">
+        <h3 class="h">Product vs process innovation</h3>
+        <div class="grid2">
+          <div class="card"><h4>Product innovation</h4><p>Creating a new or significantly improved good or service — something the customer directly experiences. E.g. a new flavour, a redesigned app feature, a new material.</p></div>
+          <div class="card"><h4>Process innovation</h4><p>A new or improved way of producing or delivering an existing product — the customer may never see it directly, but it changes cost, speed, or consistency. E.g. a faster production line, automated packing, a new delivery system.</p></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">"Innovation is not just creativity — it's culture + structure + leadership + strategy"</h3>
+        <p>The conditions a company needs to actually be innovative:</p>
+        <ul>
+          <li><strong>Fast decision-making</strong> — too many approval layers slow innovation down.</li>
+          <li><strong>Psychological safety</strong> — staff must feel safe to share unfinished ideas, challenge authority, and admit failure. If mistakes are punished, people stop experimenting.</li>
+          <li><strong>Clear purpose</strong> — innovation needs direction; without a shared vision, ideas become random rather than strategic.</li>
+          <li><strong>Willingness to experiment</strong> — prototyping, testing, iteration and failure all require the culture to tolerate temporary inefficiency.</li>
+          <li><strong>Cross-functional collaboration</strong> — marketing, production and finance interacting produces better ideas than siloed departments.</li>
+          <li><strong>Autonomy and trust</strong> — micromanagement kills creative thinking; people need freedom, ownership and responsibility.</li>
+          <li><strong>Resources and time</strong> — innovation is expensive; if every minute must be "productive," there's no room to experiment.</li>
+        </ul>
+        <div class="callout rust">
+          <strong>Common barriers to innovation:</strong> fear of failure, lack of resources, resistance to change, silos and lack of collaboration, short-term focus, bureaucracy and red tape, confirmation bias.
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Linking culture to innovation</h3>
+        <p>Ask: which culture tolerates failure? Which punishes mistakes? Which moves fastest? Which protects reputation? (See the <button class="tab-btn" style="display:inline;padding:2px 6px;" onclick="showPage('change')">Change Management</button> page for Handy's four cultures.)</p>
+        <p><strong>Generally:</strong> Task/Adhocracy-style cultures (flexible, expert-led, collaborative) create the strongest environment for innovation. Role/Hierarchy cultures (procedure-driven, predictable) create the strongest environment for stability — but tend to slow innovation down.</p>
+        <div class="callout green">Different units within the same business often need different cultures — e.g. R&amp;D needs freedom to experiment and fail, while Accounts needs consistency and control. Applying one culture to the whole business can stifle the units that need to innovate.</div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Why NZ businesses especially need to innovate</h3>
+        <p>New Zealand is small and geographically isolated, and heavily reliant on exports. Because our domestic market is tiny, NZ businesses must differentiate to compete internationally — innovation is what creates that differentiation, and intellectual property protection is what makes the differentiation sustainable rather than easily copied.</p>
+      </section>
+    </section>
+
+    <!-- ============ 03 IP ============ -->
+    <section class="page" id="page-ip">
+      <div class="page-eyebrow">03 — Protecting the idea is what makes the idea worth having</div>
+      <h2 class="title">Intellectual Property</h2>
+      <p class="lede">Why businesses protect innovation, and the six main tools NZ firms use to do it.</p>
+
+      <section class="block">
+        <h3 class="h">Why protect innovation?</h3>
+        <ul>
+          <li>Secure return on investment (ROI)</li>
+          <li>Maintain competitive advantage</li>
+          <li>Prevent imitation</li>
+          <li>Build brand value</li>
+          <li>Encourage long-term R&amp;D</li>
+        </ul>
+        <div class="callout green">Without protection, a competitor can copy an innovation at far lower cost (they don't have to pay for the R&amp;D), destroying the innovator's advantage almost immediately.</div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Types of intellectual property</h3>
+        <div class="grid2">
+          <div class="card"><h4>1. Patents</h4><p>Protect new inventions (products or processes). Usually last around 20 years. Must be novel and not obvious.</p></div>
+          <div class="card"><h4>2. Trademarks</h4><p>Protect brand names, logos and slogans. Can last indefinitely if renewed. Key tool for differentiation.</p></div>
+          <div class="card"><h4>3. Copyright</h4><p>Protects creative works — writing, music, software. Automatic — no registration needed.</p></div>
+          <div class="card"><h4>4. Design rights</h4><p>Protect the visual appearance of a product (shape, pattern, ornamentation).</p></div>
+          <div class="card"><h4>5. Trade secrets</h4><p>Protect confidential business information. No registration required — protected by keeping it secret (e.g. a secret recipe or formula).</p></div>
+          <div class="card"><h4>6. Plant Variety Rights</h4><p>Protect new plant cultivars — critical for NZ's horticulture exporters, especially kiwifruit, apples and grapes (e.g. Zespri's proprietary kiwifruit varieties).</p></div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Connecting IP to the bigger picture</h3>
+        <ol>
+          <li>NZ is small and export-reliant</li>
+          <li>NZ businesses must innovate to compete internationally</li>
+          <li>Innovation creates differentiation</li>
+          <li>Differentiation must be protected — or it can be copied</li>
+          <li>Protection creates <strong>sustainable</strong> competitive advantage</li>
+        </ol>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Generating ideas: the pain-point exercise</h3>
+        <p>Good ideation starts by anchoring ideas in genuine differentiation — ask what makes an idea valuable, why someone would pay for it, and how it's different from what already exists. Ways to gather ideas: identify inefficiencies, collect annoyances, interview peers, ask "why" repeatedly, look for unmet needs.</p>
+      </section>
+    </section>
+
+    <!-- ============ 04 MAORI CONCEPTS ============ -->
+    <section class="page" id="page-maori">
+      <div class="page-eyebrow">04 — Te ao Māori concepts used in NZ business</div>
+      <h2 class="title">Māori Business Concepts</h2>
+      <p class="lede">Māori concepts frequently referenced in NZ business studies to explain values-driven decision-making, sustainability, and stakeholder relationships. Use these to add depth and NZ context to answers about culture, ethics, and long-term strategy.</p>
+
+      <section class="block">
+        <div class="grid2">
+          <div class="card">
+            <h4>Kaitiakitanga — guardianship</h4>
+            <p>Guardianship or stewardship, especially of the environment and resources, for the benefit of future generations. In business: firms adopting kaitiakitanga prioritise sustainable practices even where this reduces short-term profit, because the resource must last beyond the current generation of owners.</p>
+          </div>
+          <div class="card">
+            <h4>Whanaungatanga — relationships</h4>
+            <p>The value placed on relationships, kinship and a sense of connection built through shared experience. In business: strong internal whanaungatanga can improve staff loyalty, trust and communication — similar in effect to how quality circles build ownership through involvement.</p>
+          </div>
+          <div class="card">
+            <h4>Manaakitanga — hospitality and care</h4>
+            <p>The process of showing respect, generosity and care for others. In business: often shapes customer service standards and how a business treats visitors, staff and communities — directly linked to reputation and customer loyalty.</p>
+          </div>
+          <div class="card">
+            <h4>Tikanga — correct procedure</h4>
+            <p>Customary protocols and correct ways of doing things. In business: informs how a firm engages appropriately with Māori stakeholders, land, or taonga (treasures) — relevant to businesses operating on or near land with cultural significance.</p>
+          </div>
+          <div class="card">
+            <h4>Whakapapa — genealogy/connection</h4>
+            <p>A sense of lineage and connection — to land, people, and history. In business: can underpin long-term thinking, since decisions are viewed as connected to both past and future generations, not just the current financial year.</p>
+          </div>
+          <div class="card">
+            <h4>Rangatiratanga — self-determination</h4>
+            <p>Chieftainship, authority and self-determination. In business: relevant to Māori-owned enterprises and iwi (tribal) organisations exercising authority over their own resources and strategic direction.</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Why this matters for an NCEA answer</h3>
+        <div class="callout green">When a question asks about business culture, sustainability, stakeholder relationships or long-term decision-making in an NZ context, a Māori concept can add a specific, NZ-relevant layer to a generic answer — but always <strong>explain the concept in your own words</strong> and directly link it to the business consequence being asked about (e.g. kaitiakitanga → sustainable sourcing → protects supply for future seasons → protects long-term profitability).</div>
+      </section>
+    </section>
+
+    <!-- ============ 05 CHANGE MANAGEMENT ============ -->
+    <section class="page" id="page-change">
+      <div class="page-eyebrow">05 — "The way things are done around here"</div>
+      <h2 class="title">Change Management &amp; Corporate Culture</h2>
+      <p class="lede">Charles Handy's four cultures, why culture shapes how change and innovation happen, and the basic models for managing change itself.</p>
+
+      <section class="block">
+        <h3 class="h">Corporate culture — definition</h3>
+        <p>Culture is <strong>the values, processes and behaviours considered normal in an organisation</strong> — "the way things are done around here." It influences risk-taking, decision speed, creativity and communication. Culture depends on company history, ownership, structure, technology, critical incidents and environment.</p>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Charles Handy's "Gods of Management" — four cultures</h3>
+        <table>
+          <tr><th>Culture</th><th>"God"</th><th>Structure</th><th>Best suited to</th></tr>
+          <tr><td><strong>Power culture</strong></td><td>Zeus</td><td>Power radiates from a central figure/small group, like a web. Few rules, little bureaucracy, fast decisions.</td><td>Small/entrepreneurial firms; hard for outsiders to influence events since decisions sit with the "family network."</td></tr>
+          <tr><td><strong>Role culture</strong></td><td>Apollo</td><td>Highly defined hierarchical bureaucracy — power comes from position, not expertise. Control via procedures and job descriptions.</td><td>Steady-state, predictable environments (government departments, public utilities). Struggles to change rapidly.</td></tr>
+          <tr><td><strong>Task culture</strong></td><td>Athena</td><td>Small, expert teams formed to solve specific problems; often a matrix structure with multiple reporting lines.</td><td>Environments needing expertise and up-to-date information — most in tune with results and innovation.</td></tr>
+          <tr><td><strong>Person culture</strong></td><td>Dionysus</td><td>Individuals see themselves as more important than the organisation; structure (if any) exists to serve members.</td><td>Professional partnerships (e.g. law firms) where each partner brings their own expertise and clients.</td></tr>
+        </table>
+        <div class="callout green">Different operating units within the same business often need different cultures — a steady, predictable unit like Accounting suits a role culture, while a Research &amp; Development unit facing constant change suits a task culture.</div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Culture and innovation/change</h3>
+        <ul>
+          <li><strong>Task/Adhocracy cultures</strong> tend to be the strongest environment for innovation and change — fast decisions, expertise-driven, tolerant of experimentation.</li>
+          <li><strong>Role/Hierarchy cultures</strong> tend to be the strongest environment for stability — but resist rapid change because authority sits in fixed procedures and positions, not adaptable expertise.</li>
+        </ul>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Managing change — key models to reference</h3>
+        <div class="grid2">
+          <div class="card">
+            <h4>Lewin's Three-Step Model</h4>
+            <p><strong>Unfreeze</strong> — build the case for change and reduce resistance by showing why the status quo isn't working.<br>
+            <strong>Change</strong> — implement the new process, structure or strategy.<br>
+            <strong>Refreeze</strong> — embed the new way of working as the new normal, so the business doesn't slide back to old habits.</p>
+          </div>
+          <div class="card">
+            <h4>Force Field Analysis</h4>
+            <p>Identifies the <strong>driving forces</strong> pushing for change (e.g. competition, new technology, cost pressures) versus the <strong>restraining forces</strong> resisting it (e.g. staff resistance, cost of retraining, fear of the unknown). Change succeeds when driving forces outweigh restraining forces — achieved by either strengthening drivers or reducing restrainers (usually more sustainable than just pushing harder).</p>
+          </div>
+          <div class="card">
+            <h4>Reasons employees resist change</h4>
+            <ul><li>Fear of the unknown / job security</li><li>Loss of control or status</li><li>Comfort with existing routines</li><li>Lack of communication or trust in management</li><li>Previous change initiatives failed</li></ul>
+          </div>
+          <div class="card">
+            <h4>How management reduces resistance</h4>
+            <ul><li>Clear, early communication about why change is happening</li><li>Involving employees in planning the change (ownership)</li><li>Training and support during transition</li><li>Visible leadership commitment</li><li>Celebrating early wins to build momentum</li></ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Writing chain for change/culture questions</h3>
+        <div class="chain">Culture or change strategy <span class="arrow">→</span> effect on structure/decision-making <span class="arrow">→</span> effect on staff/functions <span class="arrow">→</span> effect on stakeholders <span class="arrow">→</span> business outcome (innovation, stability, competitiveness)</div>
+      </section>
+    </section>
+
+    <!-- ============ 06 NZ BUSINESSES ============ -->
+    <section class="page" id="page-nzbiz">
+      <div class="page-eyebrow">06 — Real examples to anchor abstract theory</div>
+      <h2 class="title">NZ Businesses — Case Examples</h2>
+      <p class="lede">Use named, real NZ businesses to earn credit for "using relevant business examples" in Excellence-level answers. Always explain <em>why</em> the example fits the theory — don't just name-drop.</p>
+
+      <div class="grid2">
+        <div class="card">
+          <h4>Zespri</h4>
+          <p>NZ's kiwifruit export marketer. Strong example for <strong>quality control</strong> (grading/sorting fruit before shipping) and <strong>quality assurance</strong> (orchard-level growing standards), plus <strong>Plant Variety Rights</strong> protecting proprietary kiwifruit cultivars — showing how IP and quality management work together to sustain a premium export position.</p>
+        </div>
+        <div class="card">
+          <h4>Fonterra</h4>
+          <p>NZ's major dairy cooperative. Relevant to quality chains and stakeholder impact — Fonterra's 43% ownership stake in Sanlu during the 2008 melamine contamination scandal illustrates how a failure anywhere in a quality chain (even at a partly-owned overseas subsidiary) can severely damage reputation, trust and international market access.</p>
+        </div>
+        <div class="card">
+          <h4>Icebreaker</h4>
+          <p>NZ merino clothing brand built around natural fibres and sustainability messaging — a strong example of <strong>product differentiation through innovation</strong> and brand-level quality reputation supporting premium pricing in global markets.</p>
+        </div>
+        <div class="card">
+          <h4>Ethique</h4>
+          <p>NZ sustainable/solid beauty products company — useful for discussing innovation driven by unmet customer needs (reducing plastic waste) and how sustainability-led innovation can become a point of differentiation and brand value.</p>
+        </div>
+        <div class="card">
+          <h4>Rocket Lab</h4>
+          <p>NZ-founded aerospace company — a strong example of high-risk, high-investment <strong>product innovation</strong> requiring significant IP protection (patents) to secure ROI on R&amp;D, and of a task-culture organisation where expertise drives fast decision-making.</p>
+        </div>
+        <div class="card">
+          <h4>Toyota &amp; Canon (international benchmark)</h4>
+          <p>Classic international examples of <strong>Kaizen</strong> in action — Toyota famously received around 60–70 suggestions per employee per year, with historically very high implementation rates, showing what a mature continuous-improvement culture looks like in practice.</p>
+        </div>
+      </div>
+
+      <div class="callout rust" style="margin-top:20px;">
+        <strong>Exam tip:</strong> An example only earns marks if it's <em>explained</em>, not just named. Always link the business back to the theory: "For example, Zespri's [quality control step] means [effect], which leads to [stakeholder/business outcome]."
+      </div>
+    </section>
+
+    <!-- ============ 07 WRITING GUIDE ============ -->
+    <section class="page" id="page-writing">
+      <div class="page-eyebrow">07 — Structure earns marks as much as content does</div>
+      <h2 class="title">How to Write NCEA-Style Answers</h2>
+      <p class="lede">The chain that separates Achieved, Merit and Excellence answers, plus command-word definitions and a worked example.</p>
+
+      <section class="block">
+        <h3 class="h">The universal writing chain</h3>
+        <div class="chain">Strategy/action <span class="arrow">→</span> change inside the business <span class="arrow">→</span> effect on people/functions/management <span class="arrow">→</span> effect on stakeholders <span class="arrow">→</span> business outcome</div>
+        <p>Every "explain," "fully explain," or "evaluate" answer should move along this chain rather than stopping at the first link. Stopping after "this increases training costs" is Achieved-level; continuing to the stakeholder and business-outcome effect is what pushes an answer toward Merit/Excellence.</p>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Command words — what each one actually wants</h3>
+        <table>
+          <tr><th>Command word</th><th>What's required</th></tr>
+          <tr><td><strong>Explain</strong></td><td>State what happens (what), and why/how it happens — one link in the chain fully justified.</td></tr>
+          <tr><td><strong>Fully explain</strong></td><td>Continue the chain further — link the initial change through to an effect on stakeholders or the business's overall performance, not just the first consequence.</td></tr>
+          <tr><td><strong>Compare and contrast</strong></td><td>State a genuine similarity <em>and</em> a genuine difference between two things — don't just describe each one separately.</td></tr>
+          <tr><td><strong>Evaluate</strong></td><td>Weigh advantages against disadvantages (or one option against another) and reach a justified judgement — say which matters more, and why, in this specific context.</td></tr>
+          <tr><td><strong>Justify</strong></td><td>Make a clear recommendation/decision and defend it using specific evidence or reasoning from the scenario — not just balanced discussion.</td></tr>
+        </table>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Be specific — the difference between vague and credit-worthy</h3>
+        <div class="grid2">
+          <div class="card" style="border-left:4px solid var(--rust);">
+            <h4>Vague (Achieved at best)</h4>
+            <p>"Quality assurance is good because it helps the business and the workers."</p>
+          </div>
+          <div class="card" style="border-left:4px solid var(--pounamu);">
+            <h4>Specific (Merit/Excellence)</h4>
+            <p>"Quality assurance gives production employees responsibility for checking their own work at every stage, which can increase their motivation through greater ownership and recognition (Herzberg). This reduces the rate of defective products reaching customers, lowering rework and recall costs and protecting the firm's reputation for consistent quality — supporting long-term, sustainable profitability."</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Worked NCEA-style question</h3>
+        <div class="callout green">
+          <strong>Scenario:</strong> A CEO of a firm facing intense international competition decides to move to a Total Quality Management (TQM) strategy. This is a big change for the company, its production line workers, and suppliers.
+        </div>
+        <ol>
+          <li><strong>Fully explain why Quality Management is important to the performance of a business.</strong> — Link quality → customer loyalty/premium pricing/lower long-term costs → repeat purchases → revenue stability → long-term profitability.</li>
+          <li><strong>Explain TWO methods of measuring quality.</strong> — e.g. failure/reject rates and customer satisfaction surveys — explain what each measures and what it tells the business.</li>
+          <li><strong>Evaluate the impact of moving to a TQM strategy.</strong> — Explain TQM (customer-focused, quality chains, zero defects); fully explain one advantage (e.g. improved motivation through empowerment) and one disadvantage (e.g. resistance from middle managers who feel their authority is challenged); then justify — using specific details from the scenario (intense international competition, supplier and worker impact) — whether the strategy is likely to succeed.</li>
+        </ol>
+      </section>
+
+      <section class="block">
+        <h3 class="h">Stakeholder specificity checklist</h3>
+        <p>Before submitting an answer, check: have you named a <em>specific</em> stakeholder group (employees, customers, suppliers, managers, owners, government, community) rather than just "people"? Have you stated their <em>specific</em> interest (e.g. employees want job security and fair treatment; customers want reliability and value; suppliers want stable, ongoing contracts)?</p>
+      </section>
+    </section>
+
+    <!-- ============ 08 WORD BANK ============ -->
+    <section class="page" id="page-wordbank">
+      <div class="page-eyebrow">08 — Key vocabulary, in your own words</div>
+      <h2 class="title">Word Bank</h2>
+      <p class="lede">Core terms across all topics. Search to filter.</p>
+      <input type="text" id="wbSearch" placeholder="Search terms…" style="width:100%;max-width:340px;padding:9px 12px;border:1px solid var(--line);border-radius:4px;background:var(--paper-raised);color:var(--ink);font-size:14px;margin-bottom:18px;">
+      <dl class="wordbank-grid" id="wordbankGrid"></dl>
+    </section>
+
+    <!-- ============ 09 FLASHCARDS ============ -->
+    <section class="page" id="page-flashcards">
+      <div class="page-eyebrow">09 — Test yourself</div>
+      <h2 class="title">Flashcards</h2>
+      <p class="lede">Click a card to flip it. Choose a topic or study everything at once.</p>
+
+      <div class="flash-controls">
+        <select id="flashTopic">
+          <option value="all">All topics</option>
+          <option value="quality">Quality Management</option>
+          <option value="innovation">Innovation</option>
+          <option value="ip">Intellectual Property</option>
+          <option value="maori">Māori Concepts</option>
+          <option value="change">Change Management</option>
+        </select>
+        <button class="primary" id="shuffleBtn">Shuffle</button>
+      </div>
+
+      <div class="flash-progress" id="flashProgress"></div>
+      <div class="flashcard-wrap">
+        <div class="flashcard" id="flashcard">
+          <div class="face front" id="flashFront"></div>
+          <div class="face back" id="flashBack"></div>
+        </div>
+      </div>
+      <div class="flash-nav">
+        <button onclick="prevCard()" style="all:unset;cursor:pointer;padding:8px 18px;border:2px solid var(--ink);border-radius:20px;color:var(--ink);font-family:'Kalam',cursive;font-size:14px;">← Prev</button>
+        <button onclick="nextCard()" style="all:unset;cursor:pointer;padding:8px 18px;border:2px solid var(--ink);border-radius:20px;background:var(--pounamu);color:#fff;font-family:'Kalam',cursive;font-weight:700;font-size:14px;">Next →</button>
+      </div>
+    </section>
+
+    <footer class="note">Field Notes — a 3BUS revision hub. Built from class slides and notes on Quality Management, Innovation, IP, Māori concepts and Change Management.</footer>
+  </main>
+</div>
+
+<script>
+/* ---------- Navigation ---------- */
+const tabs = document.querySelectorAll('.tab-btn');
+tabs.forEach(btn=>{
+  btn.addEventListener('click', ()=> showPage(btn.dataset.page));
+});
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+id).classList.add('active');
+  tabs.forEach(b=>b.classList.toggle('active', b.dataset.page===id));
+  window.scrollTo({top:0, behavior:'smooth'});
+}
+
+/* ---------- Theme toggle ---------- */
+const themeBtn = document.getElementById('themeBtn');
+const themeLabel = document.getElementById('themeLabel');
+function applyTheme(t){
+  document.documentElement.setAttribute('data-theme', t);
+  themeLabel.textContent = t === 'dark' ? 'Dark mode' : 'Light mode';
+  themeBtn.textContent = t === 'dark' ? 'Go light' : 'Go dark';
+}
+let currentTheme = 'light';
+applyTheme(currentTheme);
+themeBtn.addEventListener('click', ()=>{
+  currentTheme = currentTheme === 'light' ? 'dark' : 'light';
+  applyTheme(currentTheme);
+});
+
+/* ---------- Word bank data ---------- */
+const wordbank = [
+  {term:"Quality", def:"Meeting or exceeding customer expectations; subjective and constantly evolving."},
+  {term:"Quality Control (QC)", def:"Reactive inspection of completed products/samples to catch defects before they reach the customer."},
+  {term:"Quality Assurance (QA)", def:"Proactive, 'right first time' approach built into every process; zero-defect, self-checking."},
+  {term:"Kaizen", def:"Continuous improvement — every employee makes small, ongoing suggestions to reduce waste and lift quality."},
+  {term:"Quality Circles", def:"Voluntary employee groups that meet regularly to identify and solve work-related problems."},
+  {term:"Total Quality Management (TQM)", def:"Whole-business philosophy: 100% customer satisfaction and zero defects, built on quality chains."},
+  {term:"Quality Chain", def:"The customer-supplier relationship (internal and external) linking every stage of production; one broken link causes failures elsewhere."},
+  {term:"Internal customer", def:"The next person/department in a process who relies on the previous step's output."},
+  {term:"External customer", def:"The end buyer of the product or service, outside the business."},
+  {term:"Product innovation", def:"A new or significantly improved good or service that the customer directly experiences."},
+  {term:"Process innovation", def:"A new or improved way of producing/delivering an existing product."},
+  {term:"Psychological safety", def:"Feeling safe to share unfinished ideas, challenge authority, and admit failure without punishment."},
+  {term:"Patent", def:"IP protection for new inventions (products/processes); lasts ~20 years; must be novel and not obvious."},
+  {term:"Trademark", def:"IP protection for brand names, logos and slogans; can last indefinitely if renewed."},
+  {term:"Copyright", def:"Automatic IP protection for creative works like writing, music and software."},
+  {term:"Trade secret", def:"Confidential business information protected by keeping it secret, not by registration."},
+  {term:"Plant Variety Rights", def:"IP protection for new plant cultivars — critical for NZ horticulture exporters like kiwifruit growers."},
+  {term:"Kaitiakitanga", def:"Guardianship/stewardship of resources and environment for future generations."},
+  {term:"Whanaungatanga", def:"The value of relationships, kinship and connection built through shared experience."},
+  {term:"Manaakitanga", def:"Showing hospitality, respect and care for others."},
+  {term:"Tikanga", def:"Customary Māori protocols and correct ways of doing things."},
+  {term:"Corporate culture", def:"The values, processes and behaviours considered normal in an organisation — 'the way things are done around here.'"},
+  {term:"Power culture (Zeus)", def:"Power radiates from a central figure/small group; few rules, fast decisions."},
+  {term:"Role culture (Apollo)", def:"Hierarchical bureaucracy; power from position; predictable but resists rapid change."},
+  {term:"Task culture (Athena)", def:"Small expert teams solve specific problems; matrix structure; strong for innovation."},
+  {term:"Person culture (Dionysus)", def:"Individuals see themselves as more important than the organisation; common in professional partnerships."},
+  {term:"Lewin's Change Model", def:"Unfreeze (build case for change), Change (implement), Refreeze (embed as new normal)."},
+  {term:"Force Field Analysis", def:"Weighs driving forces for change against restraining forces resisting it."},
+  {term:"Quality circle vs Kaizen", def:"Quality circles are formal, scheduled group meetings; Kaizen is a continuous, everyday individual mindset."},
+];
+
+const wbGrid = document.getElementById('wordbankGrid');
+function renderWordbank(list){
+  wbGrid.innerHTML = list.map(w=>`<div class="term"><dt>${w.term}</dt><dd>${w.def}</dd></div>`).join('');
+}
+renderWordbank(wordbank);
+document.getElementById('wbSearch').addEventListener('input', e=>{
+  const q = e.target.value.toLowerCase();
+  renderWordbank(wordbank.filter(w=> w.term.toLowerCase().includes(q) || w.def.toLowerCase().includes(q)));
+});
+
+/* ---------- Flashcards ---------- */
+const flashcards = [
+  {topic:"quality", q:"What's the difference between Quality Control and Quality Assurance?", a:"QC is reactive — inspecting finished products to catch faults. QA is proactive — building 'right first time' checks into every process so faults don't happen."},
+  {topic:"quality", q:"What is Kaizen?", a:"A Japanese system of continuous improvement where every employee, from management to the cleaning crew, regularly suggests small changes to reduce waste and improve quality, safety and productivity."},
+  {topic:"quality", q:"What is a Quality Circle?", a:"A voluntary group of workers, usually led by a supervisor, that meets regularly to identify, analyse and solve work-related problems, presenting solutions to management."},
+  {topic:"quality", q:"What are TQM's two key objectives?", a:"100% customer satisfaction and zero defects."},
+  {topic:"quality", q:"What is a 'quality chain'?", a:"The relationship between internal and external customers and suppliers through a process — if one link fails to meet requirements, the failure multiplies elsewhere."},
+  {topic:"quality", q:"Give one disadvantage of Quality Control.", a:"Rejected products are expensive — the full cost of production has been incurred but the product can't be sold; and QC doesn't build individual responsibility for quality the way QA does."},
+  {topic:"quality", q:"State the universal quality-writing chain.", a:"Quality strategy → change inside the business → effect on people/functions/management → effect on stakeholders → business outcomes."},
+  {topic:"innovation", q:"What's the difference between product and process innovation?", a:"Product innovation is a new/improved good or service the customer experiences directly. Process innovation is a new/improved way of producing or delivering an existing product."},
+  {topic:"innovation", q:"Name three conditions needed for a business to be innovative.", a:"Any three of: fast decision-making, psychological safety, clear purpose, willingness to experiment, cross-functional collaboration, autonomy and trust, resources and time."},
+  {topic:"innovation", q:"Why does psychological safety matter for innovation?", a:"If mistakes are punished, staff stop experimenting and sharing unfinished ideas — innovation requires people to feel safe to fail and challenge authority."},
+  {topic:"innovation", q:"Which Handy culture best supports innovation, and why?", a:"Task culture (Athena) — small expert teams, fast expertise-driven decisions, and comfort with iteration and failure."},
+  {topic:"ip", q:"Name three types of intellectual property protection.", a:"Any three of: patents, trademarks, copyright, design rights, trade secrets, plant variety rights."},
+  {topic:"ip", q:"What does a patent protect, and for how long?", a:"New inventions (products or processes); usually around 20 years; must be novel and not obvious."},
+  {topic:"ip", q:"Why are plant variety rights especially important to NZ?", a:"NZ's horticulture exporters (kiwifruit, apples, grapes) rely on proprietary cultivars for competitive advantage — without protection, other countries could grow the same variety and undercut NZ exporters."},
+  {topic:"ip", q:"Give two reasons businesses protect innovation.", a:"Any two of: secure ROI, maintain competitive advantage, prevent imitation, build brand value, encourage long-term R&D."},
+  {topic:"maori", q:"What does kaitiakitanga mean in a business context?", a:"Guardianship of resources/environment for future generations — businesses may accept lower short-term profit for sustainable long-term practice."},
+  {topic:"maori", q:"What does whanaungatanga mean in a business context?", a:"The value of relationships and connection — strong internal whanaungatanga can build staff trust, loyalty and communication."},
+  {topic:"maori", q:"What does manaakitanga mean?", a:"Hospitality, respect and care for others — often shapes customer service standards and community relationships."},
+  {topic:"change", q:"What are Charles Handy's four organisational cultures?", a:"Power (Zeus), Role (Apollo), Task (Athena), Person (Dionysus)."},
+  {topic:"change", q:"Describe Role culture (Apollo).", a:"A highly defined hierarchical bureaucracy where power derives from position, not expertise; predictable but slow to change — common in government departments."},
+  {topic:"change", q:"What are Lewin's three steps of change?", a:"Unfreeze (build the case for change), Change (implement it), Refreeze (embed it as the new normal)."},
+  {topic:"change", q:"What is force field analysis?", a:"A tool weighing the driving forces pushing for change against the restraining forces resisting it — change succeeds when driving forces outweigh restraining forces."},
+  {topic:"change", q:"Why might different units in one business need different cultures?", a:"Some units (e.g. Accounts) operate in a steady, predictable environment suited to a role culture; others (e.g. R&D) face constant change and need a task culture's flexibility."},
+];
+
+let currentDeck = flashcards.slice();
+let cardIndex = 0;
+
+function renderCard(){
+  const card = currentDeck[cardIndex];
+  document.getElementById('flashFront').textContent = card ? card.q : "No cards in this topic yet.";
+  document.getElementById('flashBack').textContent = card ? card.a : "";
+  document.getElementById('flashProgress').textContent = currentDeck.length ? `Card ${cardIndex+1} of ${currentDeck.length}` : "";
+  document.getElementById('flashcard').classList.remove('flipped');
+}
+function nextCard(){ if(!currentDeck.length) return; cardIndex = (cardIndex+1) % currentDeck.length; renderCard(); }
+function prevCard(){ if(!currentDeck.length) return; cardIndex = (cardIndex-1+currentDeck.length) % currentDeck.length; renderCard(); }
+
+document.getElementById('flashcard').addEventListener('click', function(){
+  this.classList.toggle('flipped');
+});
+document.getElementById('flashTopic').addEventListener('change', e=>{
+  const t = e.target.value;
+  currentDeck = t === 'all' ? flashcards.slice() : flashcards.filter(c=>c.topic===t);
+  cardIndex = 0;
+  renderCard();
+});
+document.getElementById('shuffleBtn').addEventListener('click', ()=>{
+  for(let i=currentDeck.length-1;i>0;i--){
+    const j = Math.floor(Math.random()*(i+1));
+    [currentDeck[i], currentDeck[j]] = [currentDeck[j], currentDeck[i]];
+  }
+  cardIndex = 0;
+  renderCard();
+});
+renderCard();
+</script>
+</body>
+</html>
